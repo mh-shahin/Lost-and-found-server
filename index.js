@@ -93,7 +93,7 @@ io.on("connection", (socket) => {
 });
 
 //define port
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5000;
 
 // Start Server
 server.listen(PORT, () => {
