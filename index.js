@@ -15,11 +15,19 @@ dotenv.config();
 const DB_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.8ouim.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 //establishing mongodb connection
-mongoose
-  .connect(DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+// mongoose
+//   .connect(DB_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log("Connected to MongoDB");
+//   })
+//   .catch((error) => {
+//     console.error("Error connecting to MongoDB:", error.message);
+//     process.exit(1);
+//   });
+mongoose.connect(DB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
   })
@@ -27,6 +35,7 @@ mongoose
     console.error("Error connecting to MongoDB:", error.message);
     process.exit(1);
   });
+
 
 const app = express();
 const server = http.createServer(app);
@@ -93,7 +102,7 @@ io.on("connection", (socket) => {
 });
 
 //define port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 
 // Start Server
 server.listen(PORT, () => {
