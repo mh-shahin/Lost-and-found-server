@@ -40,8 +40,6 @@ const DB_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@clus
 async function connectToDatabase() {
   try {
     await mongoose.connect(DB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
     });
     console.log("Connected to MongoDB");
