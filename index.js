@@ -12,7 +12,7 @@ const userRoutes = require("./routes/userRoutes");
 
 dotenv.config();
 
-const DB_URI = process.env.MONGODB_URI;
+const DB_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.8ouim.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
 
 //establishing mongodb connection
 // mongoose
@@ -27,31 +27,14 @@ const DB_URI = process.env.MONGODB_URI;
 //     console.error("Error connecting to MongoDB:", error.message);
 //     process.exit(1);
 //   });
-// mongoose.connect(DB_URI)
-//   .then(() => {
-//     console.log("Connected to MongoDB");
-//   })
-//   .catch((error) => {
-//     console.error("Error connecting to MongoDB:", error.message);
-//     process.exit(1);
-//   });
-
-// Ensure this variable is set correctly in Vercel
-async function connectToDatabase() {
-  try {
-    await mongoose.connect(DB_URI, {
-      serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
-    });
+mongoose.connect(DB_URI)
+  .then(() => {
     console.log("Connected to MongoDB");
-  } catch (error) {
+  })
+  .catch((error) => {
     console.error("Error connecting to MongoDB:", error.message);
-    process.exit(1); // Exit process if unable to connect
-  }
-}
-
-// Call the function to establish the connection
-connectToDatabase();
-
+    process.exit(1);
+  });
 
 
 const app = express();
