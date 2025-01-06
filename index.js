@@ -27,14 +27,33 @@ const DB_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@clus
 //     console.error("Error connecting to MongoDB:", error.message);
 //     process.exit(1);
 //   });
-mongoose.connect(DB_URI)
-  .then(() => {
+// mongoose.connect(DB_URI)
+//   .then(() => {
+//     console.log("Connected to MongoDB");
+//   })
+//   .catch((error) => {
+//     console.error("Error connecting to MongoDB:", error.message);
+//     process.exit(1);
+//   });
+
+// Ensure this variable is set correctly in Vercel
+async function connectToDatabase() {
+  try {
+    await mongoose.connect(DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+    });
     console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error("Error connecting to MongoDB:", error.message);
-    process.exit(1);
-  });
+    process.exit(1); // Exit process if unable to connect
+  }
+}
+
+// Call the function to establish the connection
+connectToDatabase();
+
 
 
 const app = express();
